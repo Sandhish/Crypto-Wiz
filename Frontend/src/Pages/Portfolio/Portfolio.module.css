@@ -1,0 +1,270 @@
+.portfolioContainer {
+  background-color: #1a1a1f;
+  min-height: 100vh;
+  padding: 2rem;
+  color: #ffffff;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #2c2c34;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.balance {
+  background: linear-gradient(135deg, #2c2c34 0%, #1f1f25 100%);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #3a3a43;
+}
+
+.balance span {
+  font-size: 0.9rem;
+  color: #8a8a9a;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.balance h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #00ff88;
+  margin: 0;
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #2c2c34;
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  color: #8a8a9a;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tab:hover {
+  color: #ffffff;
+}
+
+.tab.active {
+  color: #ffffff;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #00ff88;
+}
+
+.balanceLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.balanceContainer {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.plusIcon {
+  color: #4caf50;
+  transition: transform 0.2s ease;
+}
+
+.plusIcon:hover {
+  transform: scale(1.2);
+}
+
+.holdings {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.holdingCard {
+  background: linear-gradient(135deg, #2c2c34 0%, #1f1f25 100%);
+  border: 1px solid #3a3a43;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.holdingCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-color: #00ff88;
+}
+
+.holdingInfo h3 {
+  font-size: 1.4rem;
+  margin: 0 0 0.5rem 0;
+  color: #ffffff;
+}
+
+.holdingDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.holdingInfo p {
+  color: #8a8a9a;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.holdingValue {
+  font-weight: 600;
+  color: #ffffff !important;
+}
+
+.percentChange {
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  min-width: 80px;
+  text-align: right;
+}
+
+.percentChange.positive {
+  color: #00ff88 !important;
+  background-color: rgba(0, 255, 136, 0.1);
+}
+
+.percentChange.negative {
+  color: #ff4444 !important;
+  background-color: rgba(255, 68, 68, 0.1);
+}
+
+.transactions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.transaction {
+  background: linear-gradient(135deg, #2c2c34 0%, #1f1f25 100%);
+  border: 1px solid #3a3a43;
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.txInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.txType {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.buy {
+  background-color: rgba(0, 255, 136, 0.1);
+  color: #00ff88;
+}
+
+.sell {
+  background-color: rgba(255, 69, 58, 0.1);
+  color: #ff453a;
+}
+
+.txSymbol {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.txDetails {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.txDetails p {
+  margin: 0;
+  color: #8a8a9a;
+}
+
+.txDate {
+  color: #6b6b7b !important;
+  font-size: 0.9rem;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #ffffff;
+  font-size: 1.2rem;
+  background-color: #1a1a1f;
+}
+
+.noData {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #888;
+  margin: 20px 0;
+}
+
+@media (max-width: 768px) {
+  .portfolioContainer {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .txDetails {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
+  }
+
+  .holdings {
+    grid-template-columns: 1fr;
+  }
+
+  .holdingDetails {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

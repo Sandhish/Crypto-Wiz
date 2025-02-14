@@ -1,0 +1,298 @@
+.authContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  background-color: #0a0e17;
+  overflow: hidden;
+}
+
+.authBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.gradientOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top right, rgba(240, 185, 11, 0.1), transparent 40%),
+    radial-gradient(circle at bottom left, rgba(13, 96, 216, 0.1), transparent 40%);
+}
+
+.gridPattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.5;
+}
+
+.authCard {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(27, 32, 46, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.authHeader {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.authHeader h2 {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 16px 0 8px;
+}
+
+.authHeader p {
+  color: #8f9bb3;
+  font-size: 14px;
+}
+
+.authIcon {
+  color: #f0b90b;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inputGroup {
+  position: relative;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8f9bb3;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 14px 16px 14px 48px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.inputGroup input:focus {
+  outline: none;
+  border-color: #f0b90b;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.inputGroup input::placeholder {
+  color: #8f9bb3;
+}
+
+.otpGroup {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.otpInput {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  font-size: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.otpInput:focus {
+  outline: none;
+  border-color: #f0b90b;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 2px rgba(240, 185, 11, 0.2);
+}
+
+.otpInput::-webkit-inner-spin-button,
+.otpInput::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.otpInput[type=number] {
+  -moz-appearance: textfield;
+}
+
+@keyframes otpFocus {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.otpInput:focus {
+  animation: otpFocus 0.2s ease;
+}
+
+.successAlert {
+  background: rgba(46, 213, 115, 0.1);
+  border: 1px solid rgba(46, 213, 115, 0.2);
+  color: #2ed573;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.resendTimer {
+  text-align: center;
+  color: #8f9bb3;
+  font-size: 14px;
+  margin-top: 16px;
+}
+
+.resendButton {
+  background: none;
+  border: none;
+  color: #f0b90b;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  text-decoration: underline;
+}
+
+.resendButton:disabled {
+  color: #8f9bb3;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.authButton {
+  background: #f0b90b;
+  color: #000000;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.authButton:hover {
+  background: #dba90a;
+}
+
+.forgotPassword {
+  text-align: right;
+  margin-top: -10px;
+}
+
+.forgotPassword a {
+  color: #8f9bb3;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.forgotPassword a:hover {
+  color: #f0b90b;
+}
+
+.authFooter {
+  margin-top: 24px;
+  text-align: center;
+  color: #8f9bb3;
+  font-size: 14px;
+}
+
+.authLink {
+  color: #f0b90b;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.authLink:hover {
+  color: #dba90a;
+}
+
+.errorAlert {
+  background: rgba(231, 76, 60, 0.1);
+  border: 1px solid rgba(231, 76, 60, 0.2);
+  color: #e74c3c;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.secondaryButton {
+  background: transparent;
+  border: none;
+  color: #f0b90b;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.5s ease-in-out;
+}
+
+.secondaryButton:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 480px) {
+  .authCard {
+    padding: 24px;
+  }
+
+  .authHeader h2 {
+    font-size: 22px;
+  }
+
+  .inputGroup input {
+    padding: 12px 16px 12px 44px;
+  }
+
+  .authButton {
+    padding: 12px;
+  }
+}

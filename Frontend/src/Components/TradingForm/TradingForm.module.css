@@ -1,0 +1,363 @@
+.tradingForm {
+  background-color: #1a202c;
+  border-radius: 12px;
+  padding: 20px;
+  min-width: 700px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.formHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.formHeader h3 {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.orderTypeContainer {
+  background-color: #2d3748;
+  padding: 3px;
+  border-radius: 8px;
+}
+
+.orderTypeButtons {
+  display: flex;
+  gap: 3px;
+}
+
+.orderTypeButton {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+  color: #a0aec0;
+}
+
+.orderTypeButton:hover {
+  color: #ffffff;
+}
+
+.buyActive {
+  background-color: #48bb78;
+  color: #ffffff;
+}
+
+.sellActive {
+  background-color: #f56565;
+  color: #ffffff;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sideBySideContainer {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.inputContainer {
+  background-color: #2d3748;
+  border-radius: 8px;
+  padding: 12px;
+  border: 2px solid #4a5568;
+  transition: all 0.2s ease;
+  flex: 1;
+}
+
+.inputContainer.focused {
+  border-color: #4299e1;
+}
+
+.inputContainer label {
+  display: block;
+  color: #a0aec0;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inputWrapper input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 4px 0;
+  width: 100%;
+}
+
+.inputWrapper input:focus {
+  outline: none;
+}
+
+.inputWrapper input::placeholder {
+  color: #4a5568;
+}
+
+.symbolLabel {
+  color: #a0aec0;
+  font-size: 14px;
+  font-weight: 600;
+  min-width: 45px;
+  text-align: right;
+}
+
+.totalPreview,
+.pricePreview {
+  background-color: #2d3748;
+  border-radius: 8px;
+  padding: 12px;
+  border: 2px solid #4a5568;
+  transition: all 0.2s ease;
+  flex: 0.5;
+  min-width: 150px;
+}
+
+.totalPreview label,
+.pricePreview label {
+  color: #a0aec0;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.totalPreview .previewValue,
+.pricePreview .previewValue {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.buyButton {
+  background-color: #48bb78;
+  color: #ffffff;
+}
+
+.buyButton:hover {
+  background-color: #38a169;
+}
+
+.sellButton {
+  background-color: #f56565;
+  color: #ffffff;
+}
+
+.sellButton:hover {
+  background-color: #e53e3e;
+}
+
+.formContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.loadingSpinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.orderTypeButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .tradingForm {
+    min-width: unset;
+    width: 100%;
+    padding: 15px;
+  }
+
+  .formHeader {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .orderTypeContainer {
+    width: 100%;
+  }
+
+  .orderTypeButtons {
+    width: 100%;
+  }
+
+  .orderTypeButton {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+  }
+
+  .sideBySideContainer {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .inputContainer,
+  .totalPreview,
+  .pricePreview {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .inputWrapper input {
+    font-size: 14px;
+  }
+
+  .symbolLabel {
+    font-size: 12px;
+    min-width: 35px;
+  }
+
+  .totalPreview .previewValue,
+  .pricePreview .previewValue {
+    font-size: 14px;
+  }
+
+  .submitButton {
+    padding: 14px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tradingForm {
+    padding: 12px;
+  }
+
+  .formHeader h3 {
+    font-size: 16px;
+  }
+
+  .orderTypeButton {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .inputContainer,
+  .totalPreview,
+  .pricePreview {
+    padding: 10px;
+  }
+
+  .inputContainer label,
+  .totalPreview label,
+  .pricePreview label {
+    font-size: 12px;
+  }
+
+  .inputWrapper input {
+    font-size: 13px;
+  }
+
+  .symbolLabel {
+    font-size: 11px;
+    min-width: 30px;
+  }
+
+  .totalPreview .previewValue,
+  .pricePreview .previewValue {
+    font-size: 13px;
+  }
+
+  .submitButton {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+.notificationOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.notification {
+  position: relative;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 90%;
+  width: 400px;
+}
+
+@media (max-width: 768px) {
+  .notification {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .notificationTitle {
+    font-size: 1.25rem;
+  }
+
+  .notificationMessage {
+    font-size: 0.875rem;
+  }
+
+  .notificationIcon {
+    width: 3rem;
+    height: 3rem;
+    top: -1.5rem;
+  }
+}

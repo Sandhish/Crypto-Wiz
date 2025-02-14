@@ -1,0 +1,365 @@
+.cryptoListContainer {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.cryptoListHeading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.searchBarContainer {
+  position: relative;
+  width: 300px;
+}
+
+.searchBar {
+  width: 100%;
+  padding: 10px 40px 10px 15px;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #2d3748;
+  border: 1px solid #4a5568;
+  border-radius: 25px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.searchBar:focus {
+  border-color: #63b3ed;
+  box-shadow: 0 0 0 2px rgba(99, 179, 237, 0.3);
+}
+
+.searchIcon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a0aec0;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.cryptoListTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
+}
+
+.cryptoListTable th {
+  text-align: left;
+  padding: 1rem;
+  font-weight: 500;
+  color: #a0aec0;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.cryptoRow {
+  background-color: #2d3748;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.cryptoRow:hover {
+  background-color: #4a5568;
+}
+
+.cryptoRow td {
+  padding: 1rem;
+}
+
+.assetCell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cryptoIcon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.cryptoName {
+  font-weight: 500;
+}
+
+.cryptoSymbol {
+  color: #a0aec0;
+  font-size: 0.875rem;
+  margin-left: 0.25rem;
+}
+
+.priceCell {
+  font-weight: 600;
+}
+
+.changeCell {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 500;
+}
+
+.positive {
+  color: #48bb78;
+}
+
+.negative {
+  color: #f56565;
+}
+
+.arrowIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.marketCapCell,
+.volumeCell {
+  color: #a0aec0;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1a1a1a;
+  color: #a0aec0;
+  font-size: 1.25rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pageButton {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background-color: #2d3748;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pageButton:hover:not(:disabled) {
+  background-color: #4a5568;
+}
+
+.pageButton:disabled {
+  background-color: #1a202c;
+  cursor: not-allowed;
+}
+
+.pageInfo {
+  font-size: 16px;
+}
+
+.errorDialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(26, 32, 44, 0.9);
+  z-index: 1000;
+}
+
+.errorContent {
+  background-color: #2d3748;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 90%;
+  width: 400px;
+}
+
+.errorDialog p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.errorDialog button {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #4a5568;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+.errorDialog button:hover {
+  background-color: #63b3ed;
+}
+
+.searchResults {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #2d3748;
+  border: 1px solid #4a5568;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  border-radius: 8px;
+}
+
+.searchResultItem {
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.searchResultItem:hover {
+  background-color: #4a5568;
+}
+
+.searchResultIcon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.searchBarWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.iconContainer {
+  margin-top: 2px;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.profileIcon {
+  cursor: pointer;
+  color: #a0aec0;
+  transition: color 0.3s ease;
+}
+
+.profileIcon:hover {
+  color: #ffffff;
+}
+
+.watchlistButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.watchlistButton:hover {
+  transform: scale(1.1);
+}
+
+.starIcon {
+  width: 14px;
+  height: 14px;
+  color: #ffd700;
+}
+
+.starIcon:hover {
+  color: #ffed4a;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.watchlistButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.watchlistButton:hover {
+  transform: scale(1.1);
+}
+
+.starIcon {
+  width: 24px;
+  height: 24px;
+  color: #ffd700;
+}
+
+.starIcon:hover {
+  color: #ffed4a;
+}
+
+@media (max-width: 768px) {
+  .cryptoListContainer {
+    padding: 1rem;
+  }
+
+  .headerContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .searchBarContainer {
+    width: 100%;
+  }
+
+  .cryptoListTable th,
+  .cryptoRow td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .cryptoName {
+    display: none;
+  }
+
+  .searchBarWrapper {
+    width: 100%;
+  }
+
+  .searchBarContainer {
+    flex-grow: 1;
+  }
+}

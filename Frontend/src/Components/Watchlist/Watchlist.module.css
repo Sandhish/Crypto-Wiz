@@ -1,0 +1,220 @@
+.watchlistContainer {
+    background-color: #121212;
+    padding: 28px;
+    color: #e0e0e0;
+    min-height: 400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    height: 100vh;
+}
+
+.watchlistHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.watchlistHeader h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.watchlistCount {
+    background-color: #2a2a2a;
+    padding: 8px 16px;
+    border-radius: 24px;
+    font-size: 14px;
+    color: #b0b0b0;
+    font-weight: 500;
+}
+
+.watchlistTableContainer {
+    overflow-x: auto;
+    border-radius: 8px;
+    background-color: #1a1a1a;
+}
+
+.watchlistTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 8px;
+}
+
+.watchlistTable th {
+    text-align: left;
+    padding: 18px;
+    font-weight: 600;
+    color: #b0b0b0;
+    border-bottom: 1px solid #2a2a2a;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.watchlistRow {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.watchlistRow:hover {
+    background-color: #252525;
+}
+
+.watchlistTable td {
+    padding: 18px;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.assetCell {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.assetCell img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #2a2a2a;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.assetInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.assetSymbol {
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.priceCell {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 16px;
+    font-weight: 500;
+    color: #e0e0e0;
+}
+
+.changeCell {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.changeCell.positive {
+    color: #00e676;
+}
+
+.changeCell.negative {
+    color: #ff5252;
+}
+
+.changeIcon {
+    opacity: 0.8;
+}
+
+.actionCell {
+    text-align: left;
+}
+
+.removeButton {
+    background: transparent;
+    border: none;
+    color: #ff5252;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.removeButton:hover {
+    background-color: rgba(255, 82, 82, 0.15);
+    transform: scale(1.1);
+}
+
+.watchlistEmpty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    text-align: center;
+    color: #b0b0b0;
+    min-height: 300px;
+    background-color: #1a1a1a;
+    border-radius: 12px;
+    height: 100vh;
+}
+
+.watchlistEmptyIcon {
+    color: #3a3a3a;
+    margin-bottom: 24px;
+    font-size: 64px;
+}
+
+.watchlistEmpty h3 {
+    font-size: 24px;
+    margin: 0 0 12px 0;
+    color: #ffffff;
+}
+
+.watchlistEmpty p {
+    margin: 0;
+    font-size: 16px;
+    max-width: 300px;
+    line-height: 1.5;
+}
+
+.watchlistLoading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: #b0b0b0;
+    font-size: 18px;
+    background-color: #1a1a1a;
+    border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+    .watchlistContainer {
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .assetCell {
+        gap: 12px;
+    }
+
+    .assetCell img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .watchlistTable th,
+    .watchlistTable td {
+        padding: 14px 10px;
+    }
+
+    .assetName {
+        display: none;
+    }
+
+    .watchlistHeader h2 {
+        font-size: 24px;
+    }
+
+    .watchlistCount {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}

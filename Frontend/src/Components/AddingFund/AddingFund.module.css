@@ -1,0 +1,214 @@
+.depositContainer {
+  min-height: 100vh;
+  background-color: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.depositCard {
+  width: 100%;
+  max-width: 440px;
+  background-color: #1f2937;
+  border-radius: 8px;
+  border: 1px solid #374151;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cardHeader {
+  padding: 1.5rem;
+  border-bottom: 1px solid #374151;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardHeader h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: color 0.2s;
+  font-size: 1.25rem;
+}
+
+.closeButton:hover {
+  color: #e5e7eb;
+}
+
+.cardContent {
+  padding: 1.5rem;
+}
+
+.depositForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputGroup label {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #374151;
+  border: 1px solid #4b5563;
+  border-radius: 4px;
+  color: white;
+  font-size: 1rem;
+}
+
+.inputGroup input:focus {
+  outline: none;
+  border-color: #60a5fa;
+}
+
+.presetAmounts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.presetButton {
+  padding: 0.5rem;
+  background-color: #374151;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.presetButton:hover {
+  background-color: #4b5563;
+}
+
+.summaryBox {
+  background-color: #374151;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summaryLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.total {
+  border-top: 1px solid #4b5563;
+  padding-top: 1rem;
+  font-weight: bold;
+}
+
+.paymentButton {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #2563eb;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.paymentButton:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.paymentButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.buttonContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid #ffffff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.successAlert {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: #065f46;
+  border: 1px solid #047857;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.successAlert p {
+  margin: 0;
+}
+
+.errorAlert {
+  background-color: #7f1d1d;
+  border: 1px solid #b91c1c;
+  padding: 1rem;
+  border-radius: 4px;
+  color: white;
+}
+
+.errorAlert p {
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .depositCard {
+    margin: 1rem;
+  }
+
+  .presetAmounts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

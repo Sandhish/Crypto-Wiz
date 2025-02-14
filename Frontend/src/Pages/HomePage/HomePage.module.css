@@ -1,0 +1,278 @@
+.homePage {
+    font-family: 'Arial', sans-serif;
+    color: #e4e6eb;
+    line-height: 1.6;
+    background-color: #18191a;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background-color: #242526;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2d88ff;
+}
+
+.loginBtn {
+    background-color: transparent;
+    border: 1px solid #2d88ff;
+    color: #2d88ff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.loginBtn:hover {
+    background-color: #2d88ff;
+    color: #18191a;
+}
+
+.hero {
+    background: linear-gradient(135deg, #1a237e, #000051);
+    color: #ffffff;
+    text-align: center;
+    padding: 4rem 1rem;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.ctaButton {
+    background-color: #00c853;
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.ctaButton:hover {
+    background-color: #00a844;
+}
+
+.liveMarket,
+.features {
+    padding: 3rem 5%;
+}
+
+.liveMarket h2,
+.features h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: #e4e6eb;
+}
+
+.marketGrid,
+.featureGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.marketCard,
+.featureCard {
+    background-color: #242526;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.marketCard:hover,
+.featureCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+.cryptoLogo {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 1rem;
+}
+
+.cryptoInfo h3 {
+    margin-bottom: 0.5rem;
+    color: #e4e6eb;
+}
+
+.price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #e4e6eb;
+}
+
+.change {
+    font-weight: bold;
+}
+
+.positive {
+    color: #00e676;
+}
+
+.negative {
+    color: #ff5252;
+}
+
+.featureCard h3 {
+    margin-bottom: 0.5rem;
+    color: #e4e6eb;
+}
+
+.footer {
+    background-color: #242526;
+    padding: 2rem 5% 1rem;
+}
+
+.footerContent {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    margin-left: 15rem;
+}
+
+.footerSection h3 {
+    margin-bottom: 1rem;
+    color: #e4e6eb;
+    font-size: 1.1rem;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.footerSection h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background-color: #2d88ff;
+}
+
+.footerSection ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footerSection li {
+    margin-bottom: 0.6rem;
+    color: #b0b3b8;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    padding-left: 15px;
+    font-size: 0.9rem;
+}
+
+.footerSection li:last-child {
+    margin-bottom: 0;
+}
+
+.footerSection li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: #2d88ff;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.footerSection li:hover {
+    color: #2d88ff;
+}
+
+.footerBottom {
+    text-align: center;
+    padding-top: 0.8rem;
+    border-top: 1px solid #3e4042;
+    color: #b0b3b8;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .liveMarket h2,
+    .features h2 {
+        font-size: 1.5rem;
+    }
+
+    .footer {
+        padding: 1.5rem 5% 1rem;
+    }
+
+    .footerContent {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+
+    .footerSection {
+        text-align: left;
+    }
+
+    .footerSection h3 {
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .footerSection h3::after {
+        left: 0;
+        transform: none;
+        width: 30px;
+    }
+
+    .footerSection li {
+        padding-left: 12px;
+        margin-bottom: 0.5rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .footerContent {
+        grid-template-columns: 1fr;
+    }
+
+    .footerSection {
+        text-align: center;
+    }
+
+    .footerSection h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .footerSection li {
+        padding-left: 0;
+    }
+
+    .footerSection li::before {
+        display: none;
+    }
+}
