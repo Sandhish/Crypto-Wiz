@@ -363,3 +363,32 @@
     flex-grow: 1;
   }
 }
+
+.searchIcon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8f9bb3;
+}
+
+.searchIcon.loading {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+.noResultsMessage {
+  padding: 10px;
+  text-align: center;
+  color: #8f9bb3;
+  font-style: italic;
+}

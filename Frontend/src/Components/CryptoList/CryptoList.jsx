@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowUpIcon, ArrowDownIcon, SearchIcon, CircleUserRound, Star, StarOff } from 'lucide-react';
+import { ArrowUpIcon, ArrowDownIcon, SearchIcon, CircleUserRound, Star, StarOff, Loader } from 'lucide-react';
 import { useWatchlist } from '../../Services/Watchlist';
 import axios from 'axios';
 import classNames from 'classnames';
@@ -18,6 +18,7 @@ const CryptoList = () => {
   const [page, setPage] = useState(savedPage);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(false);
   const [error, setError] = useState(null);
   const [totalCoins, setTotalCoins] = useState(0);
   const [websocketConnected, setWebsocketConnected] = useState(false);
@@ -160,27 +161,8 @@ const CryptoList = () => {
       return;
     }
 
+    setSearchLoading(true);
     const cleanQuery = query.trim().toLowerCase();
-
-    const localResults = cryptos.filter(crypto =>
-      crypto.name.toLowerCase().includes(cleanQuery) ||
-      crypto.symbol.toLowerCase().includes(cleanQuery)
-    ).map(crypto => ({
-      ...crypto,
-      matchScore: (
-        crypto.symbol.toLowerCase() === cleanQuery ? 3 :
-          crypto.symbol.toLowerCase().startsWith(cleanQuery) ? 2 :
-            crypto.name.toLowerCase().startsWith(cleanQuery) ? 1 : 0
-      )
-    }));
-
-    if (cleanQuery.length < 2) {
-      setSearchResults(localResults
-        .sort((a, b) => b.matchScore - a.matchScore)
-        .slice(0, 10)
-      );
-      return;
-    }
 
     try {
       const response = await axios.post('https://api.livecoinwatch.com/coins/list', {
@@ -188,7 +170,7 @@ const CryptoList = () => {
         sort: 'rank',
         order: 'ascending',
         offset: 0,
-        limit: 20,
+        limit: 160,
         meta: true,
         search: cleanQuery
       }, {
@@ -198,48 +180,55 @@ const CryptoList = () => {
         }
       });
 
-      const apiResults = response.data.map(crypto => ({
-        id: crypto.code,
-        symbol: crypto.code.replace(/_/g, ''),
-        name: crypto.name,
-        price: crypto.rate,
-        percentageChange: crypto.delta.day,
-        marketCap: crypto.cap,
-        volume: crypto.volume,
-        iconUrl: `https://lcw.nyc3.cdn.digitaloceanspaces.com/production/currencies/64/${crypto.code.toLowerCase()}.png`,
-        matchScore: (
-          crypto.code.toLowerCase() === cleanQuery ? 3 :
-            crypto.code.toLowerCase().startsWith(cleanQuery) ? 2 :
-              crypto.name.toLowerCase().startsWith(cleanQuery) ? 1 : 0
-        )
-      }));
+      if (response.data && Array.isArray(response.data)) {
+        const exactMatches = response.data.filter(crypto =>
+          crypto.code.toLowerCase() === cleanQuery ||
+          crypto.name.toLowerCase() === cleanQuery
+        );
 
-      const combinedResults = [...apiResults];
-      localResults.forEach(localResult => {
-        if (!combinedResults.some(r => r.symbol === localResult.symbol)) {
-          combinedResults.push(localResult);
+        if (exactMatches.length > 0) {
+          const results = exactMatches.map(match => ({
+            id: match.code,
+            symbol: match.code.replace(/_/g, ''),
+            name: match.name,
+            price: match.rate,
+            percentageChange: match.delta?.day || 0,
+            marketCap: match.cap,
+            volume: match.volume,
+            iconUrl: `https://lcw.nyc3.cdn.digitaloceanspaces.com/production/currencies/64/${match.code.toLowerCase()}.png`,
+          }));
+          setSearchResults(results);
+        } else {
+          const results = response.data
+            .filter(crypto =>
+              crypto.code.toLowerCase().includes(cleanQuery) ||
+              crypto.name.toLowerCase().includes(cleanQuery)
+            )
+            .map(crypto => ({
+              id: crypto.code,
+              symbol: crypto.code.replace(/_/g, ''),
+              name: crypto.name,
+              price: crypto.rate,
+              percentageChange: crypto.delta?.day || 0,
+              marketCap: crypto.cap,
+              volume: crypto.volume,
+              iconUrl: `https://lcw.nyc3.cdn.digitaloceanspaces.com/production/currencies/64/${crypto.code.toLowerCase()}.png`,
+            }))
+            .slice(0, 5);
+
+          setSearchResults(results);
         }
-      });
-
-      const sortedResults = combinedResults
-        .sort((a, b) => {
-          if (b.matchScore !== a.matchScore) {
-            return b.matchScore - a.matchScore;
-          }
-          return (b.marketCap || 0) - (a.marketCap || 0);
-        })
-        .slice(0, 10);
-
-      setSearchResults(sortedResults);
+      } else {
+        setSearchResults([]);
+        console.warn("API returned unexpected data format:", response.data);
+      }
     } catch (error) {
-      console.error('Search error:', error);
-      setSearchResults(
-        localResults
-          .sort((a, b) => b.matchScore - a.matchScore)
-          .slice(0, 10)
-      );
+      console.error('Search API error:', error.response || error);
+      setSearchResults([]);
+    } finally {
+      setSearchLoading(false);
     }
-  }, [cryptos, API_KEY]);
+  }, [API_KEY]);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -295,12 +284,21 @@ const CryptoList = () => {
     navigate(`/crypto/${cleanSymbol}USDT`);
   };
 
+  const handleSearchResultClick = (symbol) => {
+    const cleanSymbol = symbol.replace(/_/g, '');
+    navigate(`/crypto/${cleanSymbol}USDT`);
+    setSearchQuery('');
+    setSearchResults([]);
+  };
+
   const handleNextPage = () => {
+    setPageLoading(true);
     setPage((prevPage) => prevPage + 1);
   };
 
   const handlePreviousPage = () => {
     if (page > 1) {
+      setPageLoading(true);
       setPage((prevPage) => prevPage - 1);
     }
   };
@@ -354,16 +352,16 @@ const CryptoList = () => {
                     }
                   }}
                 />
-                <SearchIcon className={styles.searchIcon} size={20} />
+                {searchLoading ? (
+                  <Loader className={styles.searchIcon} size={20} />
+                ) : (
+                  <SearchIcon className={styles.searchIcon} size={20} />
+                )}
                 {searchResults.length > 0 && searchQuery && (
                   <div className={styles.searchResults}>
                     {searchResults.map((crypto) => (
                       <div key={crypto.id} className={styles.searchResultItem}
-                        onClick={() => {
-                          handleRowClick(crypto.symbol);
-                          setSearchQuery('');
-                          setSearchResults([]);
-                        }}
+                        onClick={() => handleSearchResultClick(crypto.symbol)}
                       >
                         <img src={crypto.iconUrl} alt={crypto.symbol} className={styles.searchResultIcon}
                           onError={(e) => {
@@ -376,6 +374,13 @@ const CryptoList = () => {
                         </span>
                       </div>
                     ))}
+                  </div>
+                )}
+                {searchResults.length === 0 && searchQuery && !searchLoading && (
+                  <div className={styles.searchResults}>
+                    <div className={styles.noResultsMessage}>
+                      No results found for "{searchQuery}"
+                    </div>
                   </div>
                 )}
               </div>
@@ -438,14 +443,14 @@ const CryptoList = () => {
             </table>
           </div>
           <div className={styles.pagination}>
-            <button className={styles.pageButton} onClick={handlePreviousPage} disabled={page === 1 || loading} >
-              Previous
+            <button className={styles.pageButton} onClick={handlePreviousPage} disabled={page === 1 || pageLoading}>
+              {pageLoading && page > 1 ? <Loader size={16} className={styles.buttonLoader} /> : 'Previous'}
             </button>
             <span className={styles.pageInfo}>
               Page {page} of {totalPages}
             </span>
-            <button className={styles.pageButton} onClick={handleNextPage} disabled={page === totalPages || loading} >
-              Next
+            <button className={styles.pageButton} onClick={handleNextPage} disabled={page === totalPages || pageLoading}>
+              {pageLoading && page < totalPages ? <Loader size={16} className={styles.buttonLoader} /> : 'Next'}
             </button>
           </div>
         </>

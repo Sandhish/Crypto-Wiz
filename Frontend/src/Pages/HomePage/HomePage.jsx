@@ -7,7 +7,7 @@ const HomePage = () => {
     return (
         <div className={styles.homePage}>
             <header className={styles.header}>
-                <div className={styles.logo}>Crypto Wiz</div>
+                <div className={styles.logo}><i>Crypto Wiz</i></div>
                 <nav className={styles.nav}>
                     <button className={styles.loginBtn} onClick={() => navigate('/login')}>Login</button>
                 </nav>

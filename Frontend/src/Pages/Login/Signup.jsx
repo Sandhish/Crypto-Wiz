@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signup } from '../../Services/authService';
 import styles from '../Login/Login.module.css';
-import { UserPlus, Mail, Lock, User } from 'lucide-react';
+import { UserPlus, Mail, Lock, User, Loader } from 'lucide-react';
 
 const Signup = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -15,16 +16,20 @@ const Signup = () => {
       ...formData,
       [name]: value,
     });
+    setError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const data = await signup(formData);
       localStorage.setItem('token', data.token);
       navigate('/user');
     } catch (error) {
-      setError(error.response?.data?.message || 'An error occurred');
+      setError(error.response?.data?.message || 'An error occurred during signup');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -51,33 +56,38 @@ const Signup = () => {
         <form onSubmit={handleSubmit} className={styles.authForm}>
           <div className={styles.inputGroup}>
             <User className={styles.inputIcon} size={18} />
-            <input type="text" name="name" placeholder="Full Name"
-              value={formData.name} onChange={handleInputChange} required
-            />
+            <input type="text" name="name" placeholder="Full Name" value={formData.name}
+              onChange={handleInputChange} disabled={isLoading} required />
           </div>
 
           <div className={styles.inputGroup}>
             <Mail className={styles.inputIcon} size={18} />
-            <input type="email" name="email" placeholder="Email Address"
-              value={formData.email} onChange={handleInputChange} required
-            />
+            <input type="email" name="email" placeholder="Email Address" value={formData.email}
+              onChange={handleInputChange} disabled={isLoading} required />
           </div>
 
           <div className={styles.inputGroup}>
             <Lock className={styles.inputIcon} size={18} />
-            <input type="password" name="password" placeholder="Password"
-              value={formData.password} onChange={handleInputChange} required
-            />
+            <input type="password" name="password" placeholder="Password" value={formData.password}
+              onChange={handleInputChange} disabled={isLoading} required />
           </div>
 
-          <button type="submit" className={styles.authButton}>
-            Create Account
+          <button type="submit" className={`${styles.authButton} ${isLoading ? styles.loading : ''}`} disabled={isLoading} >
+            {isLoading ? (
+              <>
+                <Loader className={styles.spinnerIcon} size={18} />
+                <span>Creating Account...</span>
+              </>
+            ) : (
+              'Create Account'
+            )}
           </button>
         </form>
 
         <div className={styles.authFooter}>
-          <p> Already have an account?{' '}
-            <a href="/login" className={styles.authLink}>
+          <p>
+            Already have an account?{' '}
+            <a href="/login" className={styles.authLink} tabIndex={isLoading ? -1 : 0}>
               Login
             </a>
           </p>
