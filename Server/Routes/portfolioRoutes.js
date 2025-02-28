@@ -13,4 +13,6 @@ router.get('/history', protect, tradeController.getTransactionHistory);
 
 router.post('/funds', protect, tradeController.addingFund);
 
+router.post('/webhook', express.raw({type: 'application/json'}), tradeController.handleStripeWebhook);
+
 module.exports = router;

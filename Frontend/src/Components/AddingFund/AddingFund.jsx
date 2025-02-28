@@ -1,19 +1,37 @@
 import { useState } from 'react';
-import { CreditCard, Wallet, ArrowRight, Check, X } from 'lucide-react';
+import { CreditCard, Check, X } from 'lucide-react';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import styles from './AddingFund.module.css';
 
-const DepositFunds = ({ onUpdateBalance = () => { }, currentBalance = 0 }) => {
-    const [amount, setAmount] = useState('');
+const stripePromise = loadStripe('pk_test_51Qx9jbQV0ALkosDI0adW25M4CBYipK9fBtZALtl1IMzQSiWvJJsXicOjioYb99cauGDand2uCiC9vIifjqggid4M00T7LUmGmo');
+
+const cardElementOptions = {
+    style: {
+        base: {
+            color: '#ffffff',
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+            fontSize: '16px',
+            '::placeholder': {
+                color: '#aab7c4',
+            },
+            backgroundColor: 'transparent',
+        },
+        invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a',
+        },
+    },
+};
+
+const CheckoutForm = ({ onUpdateBalance, amount, setShowSuccess }) => {
+    const stripe = useStripe();
+    const elements = useElements();
     const [loading, setLoading] = useState(false);
-    const [showSuccess, setShowSuccess] = useState(false);
     const [error, setError] = useState('');
 
-    const handlePayment = async () => {
-        if (!amount || isNaN(parseFloat(amount))) {
-            setError('Please enter a valid amount');
-            return;
-        }
-
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         setLoading(true);
         setError('');
 
@@ -23,38 +41,103 @@ const DepositFunds = ({ onUpdateBalance = () => { }, currentBalance = 0 }) => {
                 throw new Error('Please log in to add funds.');
             }
 
+            if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
+                throw new Error('Please enter a valid amount.');
+            }
+
             const response = await fetch(`${import.meta.env.VITE_BACKEND_API}/api/portfolio/funds`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify({
-                    amount: parseFloat(amount)
-                })
+                body: JSON.stringify({ amount: parseFloat(amount) * 100 })
             });
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(errorData.error || 'Failed to process payment.');
+                throw new Error(errorData.error || 'Failed to create payment intent');
             }
 
-            const result = await response.json();
-
-            if (typeof onUpdateBalance === 'function') {
-                onUpdateBalance(result.newBalance);
+            const { clientSecret } = await response.json();
+            if (!clientSecret) {
+                throw new Error('Failed to get client secret.');
             }
 
-            setShowSuccess(true);
-            setAmount('');
+            const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: elements.getElement(CardElement)
+                }
+            });
+
+            if (stripeError) {
+                setError(stripeError.message);
+                setLoading(false);
+                return;
+            }
+
+            if (paymentIntent.status === 'succeeded') {
+                setTimeout(refreshUserBalance, 2000);
+                setShowSuccess(true);
+            } else {
+                setError('Payment processing failed. Please try again.');
+            }
         } catch (error) {
-            console.error('Error processing payment:', error);
-            setError(error.message || 'An error occurred while processing the payment.');
+            console.error('Error:', error);
+            setError(error.message || 'An error occurred.');
         }
 
         setLoading(false);
     };
 
+    const refreshUserBalance = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_API}/api/portfolio/portfolio`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (typeof onUpdateBalance === 'function') {
+                    onUpdateBalance(data.balance);
+                }
+            }
+        } catch (error) {
+            console.error('Error refreshing balance:', error);
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <div className={styles.cardElementContainer}>
+                <CardElement options={cardElementOptions} />
+            </div>
+            <button type="submit" disabled={!stripe || loading} className={styles.paymentButton}>
+                {loading ? (
+                    <div className={styles.buttonContent}>
+                        <div className={styles.spinner}></div>
+                        Processing...
+                    </div>
+                ) : (
+                    <div className={styles.buttonContent}>
+                        <CreditCard className={styles.icon} />
+                        Pay Now
+                    </div>
+                )}
+            </button>
+            {error && <div className={styles.errorAlert}><p>{error}</p></div>}
+        </form>
+    );
+};
+
+const DepositFunds = ({ onUpdateBalance = () => { }, currentBalance = 0 }) => {
+    const [amount, setAmount] = useState('');
+    const [showSuccess, setShowSuccess] = useState(false);
     const presetAmounts = [100, 500, 1000, 5000];
 
     return (
@@ -67,11 +150,6 @@ const DepositFunds = ({ onUpdateBalance = () => { }, currentBalance = 0 }) => {
                     </button>
                 </div>
                 <div className={styles.cardContent}>
-                    {error && (
-                        <div className={styles.errorAlert}>
-                            <p>{error}</p>
-                        </div>
-                    )}
                     {!showSuccess ? (
                         <div className={styles.depositForm}>
                             <div className={styles.inputGroup}>
@@ -88,38 +166,9 @@ const DepositFunds = ({ onUpdateBalance = () => { }, currentBalance = 0 }) => {
                                 ))}
                             </div>
 
-                            <div className={styles.summaryBox}>
-                                <div className={styles.summaryRow}>
-                                    <div className={styles.summaryLabel}>
-                                        <Wallet className={styles.icon} />
-                                        <span>Amount</span>
-                                    </div>
-                                    <span>${amount || '0.00'}</span>
-                                </div>
-                                <div className={styles.summaryRow}>
-                                    <div className={styles.summaryLabel}>
-                                        <CreditCard className={styles.icon} />
-                                        <span>Processing Fee</span>
-                                    </div>
-                                    <span>${amount ? (parseFloat(amount) * 0.015).toFixed(2) : '0.00'}</span>
-                                </div>
-                                <div className={`${styles.summaryRow} ${styles.total}`}>
-                                    <span>Total</span>
-                                    <span>${amount ? (parseFloat(amount) * 1.015).toFixed(2) : '0.00'}</span>
-                                </div>
-                            </div>
-
-                            <button onClick={handlePayment} disabled={!amount || loading}
-                                className={`${styles.paymentButton} ${loading ? styles.loading : ''}`} >
-                                {loading ? (
-                                    <div className={styles.spinner}></div>
-                                ) : (
-                                    <div className={styles.buttonContent}>
-                                        <span>Continue to Payment</span>
-                                        <ArrowRight className={styles.icon} />
-                                    </div>
-                                )}
-                            </button>
+                            <Elements stripe={stripePromise}>
+                                <CheckoutForm amount={amount} onUpdateBalance={onUpdateBalance} setShowSuccess={setShowSuccess} />
+                            </Elements>
                         </div>
                     ) : (
                         <div className={styles.successAlert}>

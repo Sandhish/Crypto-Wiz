@@ -102,6 +102,19 @@
   background-color: #4b5563;
 }
 
+.cardElementContainer {
+  background-color: #374151;
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #4b5563;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s;
+}
+
+.cardElementContainer:hover {
+  border-color: #60a5fa;
+}
+
 .summaryBox {
   background-color: #374151;
   padding: 1rem;
@@ -197,6 +210,7 @@
   padding: 1rem;
   border-radius: 4px;
   color: white;
+  margin-top: 1rem;
 }
 
 .errorAlert p {
@@ -207,7 +221,7 @@
   .depositCard {
     margin: 1rem;
   }
-
+  
   .presetAmounts {
     grid-template-columns: repeat(2, 1fr);
   }
