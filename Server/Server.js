@@ -8,12 +8,25 @@ const startWebSocket = require('./binanceSocket');
 
 dotenv.config();
 
+const allowedOrigins = [
+    'https://cryptowizz.vercel.app',
+    'http://localhost:5173'
+]; 
 const app = express();
 const server = http.createServer(app);
 
 const wss = new WebSocket.Server({ server });
 
-app.use(cors());
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

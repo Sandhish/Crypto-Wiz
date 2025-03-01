@@ -15,4 +15,6 @@ router.post('/funds', protect, tradeController.addingFund);
 
 router.post('/webhook', express.raw({type: 'application/json'}), tradeController.handleStripeWebhook);
 
+router.post('/withdraw', protect, tradeController.withdrawFunds);
+
 module.exports = router;

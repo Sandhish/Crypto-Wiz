@@ -235,8 +235,25 @@ const tradeController = {
                 return res.status(500).json({ error: 'Failed to process payment' });
             }
         }
-
         res.json({ received: true });
+    },
+
+    withdrawFunds: async (req, res) => {
+        try {
+            const user = await User.findById(req.user._id);
+            const amount = req.body.amount;
+
+            if (amount > user.balance) {
+                return res.status(400).json({ message: 'Insufficient funds.' });
+            }
+
+            user.balance -= amount;
+            await user.save();
+
+            res.json({ message: 'Withdrawal successful.', balance: user.balance });
+        } catch (err) {
+            res.status(500).json({ message: 'Withdrawal failed.', error: err.message });
+        }
     }
 };
 

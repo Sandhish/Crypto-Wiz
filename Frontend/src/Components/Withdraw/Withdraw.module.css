@@ -1,0 +1,269 @@
+.withdrawContainer {
+    min-height: 100vh;
+    background-color: #111827;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.withdrawCard {
+    width: 100%;
+    max-width: 440px;
+    background-color: #1f2937;
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.cardHeader {
+    padding: 1.5rem;
+    background-color: #1a1a2e;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.cardHeader::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #60a5fa, transparent);
+}
+
+.cardContent {
+    padding: 1.5rem;
+}
+
+.withdrawForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.amountContainer {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.currencySymbol {
+    position: absolute;
+    left: 1rem;
+    top: 2.7rem;
+    color: #9ca3af;
+    font-weight: bold;
+}
+
+.withdrawInput {
+    width: 100%;
+    padding: 1rem 1rem 1rem 2rem;
+    background-color: #2c3444;
+    border: 1px solid #4b5563;
+    border-radius: 8px;
+    color: white;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.withdrawInput:focus {
+    outline: none;
+    border-color: #60a5fa;
+}
+
+.label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #d1d5db;
+    letter-spacing: 0.025em;
+}
+
+.safetyMessage {
+    background-color: #312e81;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    border-left: 3px solid #818cf8;
+    font-size: 0.875rem;
+    color: #d1d5db;
+}
+
+.withdrawButton {
+    width: 100%;
+    padding: 0.9rem;
+    background-color: #2563eb;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+}
+
+.withdrawButton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.05);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.withdrawButton:hover::after {
+    transform: translateX(0);
+}
+
+.withdrawButton:hover:not(:disabled) {
+    background-color: #1d4ed8;
+}
+
+.withdrawButton:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.withdrawButton:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.buttonContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.spinner {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.errorMessage {
+    background-color: #7f1d1d;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    margin-top: 1rem;
+    padding: 1rem;
+    position: relative;
+    padding-left: 2.5rem;
+}
+
+.errorMessage::before {
+    content: '!';
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    background-color: white;
+    color: #7f1d1d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.75rem;
+}
+
+.successMessage {
+    background-color: #064e3b;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    margin-top: 1rem;
+    padding: 1rem;
+    position: relative;
+    padding-left: 2.5rem;
+}
+
+.successMessage::before {
+    content: '✓';
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    background-color: white;
+    color: #064e3b;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.75rem;
+}
+
+.backButton {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    font-size: 0.875rem;
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    transition: color 0.2s;
+}
+
+.backButton:hover {
+    color: white;
+}
+
+.backButton::before {
+    content: '←';
+    margin-right: 0.25rem;
+}
+
+.withdrawProgress {
+    margin: 1.5rem 0;
+    height: 4px;
+    background-color: #374151;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progressBar {
+    height: 100%;
+    background: linear-gradient(to right, #01ad68, #009257);
+    width: 0;
+    transition: width 0.5s ease;
+}
+
+@media (max-width: 480px) {
+    .withdrawCard {
+        border-radius: 0;
+        max-width: 100%;
+        border-left: none;
+        border-top: 4px solid #ef4444;
+    }
+}

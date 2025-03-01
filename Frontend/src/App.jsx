@@ -10,6 +10,7 @@ import HomePage from './Pages/HomePage/HomePage';
 import Watchlist from './Components/Watchlist/Watchlist';
 import CryptoList from './Components/CryptoList/CryptoList';
 import PasswordReset from './Pages/Login/PasswordReset';
+import Withdraw from './Components/Withdraw/Withdraw';
 
 const App = () => {
   return (
@@ -43,6 +44,12 @@ const App = () => {
           <Route path="/funds" element={
             <ProtectedRoute>
               <DepositFunds />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/withdraw" element={
+            <ProtectedRoute>
+              <Withdraw />
             </ProtectedRoute>
           } />
 

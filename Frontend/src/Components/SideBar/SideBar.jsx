@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, Wallet, PlusCircle, LineChart, BookMarked, LogOut, User } from 'lucide-react';
+import { X, Wallet, PlusCircle, DollarSign, LineChart, BookMarked, LogOut, User } from 'lucide-react';
 import styles from './SideBar.module.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -59,6 +59,15 @@ const Sidebar = ({ isOpen, onClose }) => {
             className: 'addFunds',
             onClick: () => {
                 navigate('/funds');
+                onClose();
+            }
+        },
+        {
+            icon: DollarSign,
+            label: 'Withdraw',
+            className: 'withdraw',
+            onClick: () => {
+                navigate('/withdraw');
                 onClose();
             }
         },
